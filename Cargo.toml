@@ -22,3 +22,8 @@ env_logger = "0.10"
 dotenv = "0.15"
 dirs = "5.0"
 toml = "0.7"
+
+[dev-dependencies]
+tempfile = "3.3"
+mockito = "0.31"
+tokio-test = "0.4"

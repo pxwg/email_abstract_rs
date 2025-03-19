@@ -96,7 +96,7 @@ fn process_email(parsed: &mailparse::ParsedMail, results: &mut Vec<EmailTable>) 
   });
 }
 
-fn extract_email(s: &str) -> String {
+pub fn extract_email(s: &str) -> String {
   s.split('<')
     .last()
     .and_then(|s| s.split('>').next())
@@ -105,7 +105,7 @@ fn extract_email(s: &str) -> String {
     .to_lowercase()
 }
 
-fn is_tsinghua_sender(sender: &str) -> bool {
+pub fn is_tsinghua_sender(sender: &str) -> bool {
   sender.contains("mail.tsinghua") || sender.contains("mails.tsinghua")
 }
 
