@@ -1,3 +1,4 @@
 /target
 email.db
 .env
+**/.DS_Store
