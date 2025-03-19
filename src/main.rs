@@ -1,4 +1,4 @@
-use std::env;
+use dotenv::dotenv;
 
 pub mod api_req;
 pub mod data_sql;
@@ -7,13 +7,15 @@ pub mod email_abstract;
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let api_key = env::var("DEEPSEEK_API_KEY").expect("API key not found");
-    let email_address = env::var("MAIL_ADDRESS").expect("Email address not found");
-    let email_password = env::var("MAIL_PASSWORD").expect("Email password not found");
-    let path_to_db = env::var("PATH_TO_DB").expect("Path to DB not found");
+    let api_key = dotenv::var("DEEPSEEK_API_KEY").expect("API key not found");
+    let email_address = dotenv::var("MAIL_ADDRESS").expect("Email address not found");
+    let email_password = dotenv::var("MAIL_PASSWORD").expect("Email password not found");
+    let path_to_db = dotenv::var("PATH_TO_DB").expect("Path to DB not found");
+    print!("{}", path_to_db);
+    dotenv().ok();
 
     let emails_result =
-        email::fetch_emails(&email_address, &email_password, 7, "mails.tsinghua.edu.cn").await;
+        email::fetch_emails(&email_address, &email_password, 1, "mails.tsinghua.edu.cn").await;
     let prompt = email_abstract::generate_summary_prompt(&emails_result);
 
     let result = api_req::query_openai(&prompt, &api_key, "deepseek-chat", 1000, 0.7).await?;

@@ -14,8 +14,9 @@ serde_json = "1.0"
 rusqlite = "0.25.0"
 futures = "0.3.29"
 log = "0.4"
-imap = { version = "2.0", features = ["native-tls"] }
-mailparse = "0.13"
+imap = { version = "2.4", features = ["native-tls"] }
+mailparse = "0.14"
 chrono = "0.4"
 native-tls = "0.2"
 env_logger = "0.10"
+dotenv = "0.15"
