@@ -30,6 +30,6 @@ API 与 邮件地址、邮箱密码通过环境变量
 DEEPSEEK_API_KEY="your_api_key"
 MAIL_ADDRESS="zhangsan@mails.tsinghua.edu.cn"  # Set this elsewhere in your application
 MAIL_PASSWORD="your_passowrd"  # Set this elsewhere in your application
-PATH_TO_DB="email.db" # absolute path to the database
+PATH_TO_DB="/path/to/your/sqlite.db" # absolute path to the database
 ```
 存储在 `.env` 文件之中。
