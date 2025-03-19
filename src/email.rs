@@ -11,6 +11,18 @@ pub struct EmailTable {
   pub body: String,
 }
 
+/// Get emails
+///
+/// # Arguments
+///
+/// * `email_address`
+/// * `password`
+/// * `days_ago` - The history should be checked
+/// * `imap_server`
+///
+/// # Returns
+///
+/// The text response from the email
 pub async fn fetch_emails(
   email_address: &str,
   password: &str,
