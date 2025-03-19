@@ -2,8 +2,9 @@ use rusqlite;
 
 pub async fn store_json_to_db(
     events: Vec<serde_json::Value>,
+    path_to_db: &str,
 ) -> Result<(), Box<dyn std::error::Error>> {
-    let conn = rusqlite::Connection::open("events.db")?;
+    let conn = rusqlite::Connection::open(path_to_db)?;
 
     conn.execute(
         "CREATE TABLE IF NOT EXISTS events (
