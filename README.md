@@ -8,7 +8,7 @@
 
 ```mermaid
 graph TD
-    A[emails] -> B[DeepSeek API]
+    A[emails] --> B[DeepSeek API]
     B --> C[SQLite Database]
 ```
 本系统主要用于抓取清华大学官方发送的邮件数据，抓取、生成对应报告的摘要并保存在数据库之中。目前直接硬编码过滤包含 `tsinghua.edu` 的发件人，之后会添加配置项。
