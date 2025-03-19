@@ -19,7 +19,7 @@ graph TD
 
 ```toml
 model = "deepseek-chat" # or "deepseek-rensonor"
-prompt = "input = {emails_input} \n 请按照某要求处理输入的邮件数据"
+prompt = "input = {emails_input} \n 请按照某要求处理输入的邮件数据" # {emails_input} 处会插入格式化的邮件输入
 temperature = 0.5
 max_tokens = 100
 dates = 100 # 查询日期范围
