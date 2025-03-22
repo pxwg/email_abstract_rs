@@ -1,4 +1,5 @@
-FROM rust:1.76-slim as builder
+# rust version: 1.84
+FROM rust:1.84-slim as builder
 
 WORKDIR /app
 COPY . .
@@ -22,7 +23,8 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
-COPY --from=builder /app/target/release/email_abstract_rs /app/email_abstract_rs
-COPY --from=builder /app/.env.example /app/.env
 
-ENTRYPOINT ["email_abstract_rs"]
+# Replace "email_abstract_rs" with your actual binary name from Cargo.toml
+COPY --from=builder /app/target/release/email_abstract_rs /app/email_abstract_rs
+
+ENTRYPOINT ["/app/email_abstract_rs"]
