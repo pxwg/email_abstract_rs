@@ -15,7 +15,7 @@ graph TD
 
 ### 配置
 
-配置文件位于 `~/.config/email_abstract/config.toml`，格式如下：
+配置文件位于 `~/.config/email_abstract/config.toml` (见`/src/config.rs`)，格式如下：
 
 ```toml
 model = "deepseek-chat" # or "deepseek-rensonor"
