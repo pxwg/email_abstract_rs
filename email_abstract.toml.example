@@ -1,0 +1,4 @@
+model = "deepseek-chat"
+prompt = "input = {emails} man"
+dates = 50
+temperature = 0.5

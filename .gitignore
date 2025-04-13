@@ -2,3 +2,5 @@
 email.db
 .env
 **/.DS_Store
+*.log
+email_abstract.toml
