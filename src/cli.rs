@@ -67,6 +67,10 @@ pub enum Commands {
     #[arg(required = true)]
     date: String,
 
+    /// Path to the HTML template file
+    #[arg(long)]
+    template: Option<String>,
+
     /// Path to the SQLite database
     #[arg(long)]
     db_path: Option<String>,

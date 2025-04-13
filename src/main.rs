@@ -172,6 +172,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     cli::Commands::Generate {
       date,
       db_path,
+      template,
       output,
     } => {
       let path_to_db =
@@ -188,8 +189,11 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         return Ok(());
       }
 
+      let template_path = template.unwrap_or_else(|| {
+        dotenv::var("TEMPLATE_PATH").unwrap_or_else(|_| "./template/wanyou_mini.html".to_string())
+      });
       println!("Generating HTML output to {}", output_path);
-      insert_html::generate_events_html(&events, "template/wanyou.html", &output_path).await?;
+      insert_html::generate_events_html(&events, &template_path, &output_path).await?;
       println!("HTML generation completed successfully");
     }
   }
