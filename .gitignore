@@ -4,3 +4,4 @@ email.db
 **/.DS_Store
 *.log
 email_abstract.toml
+out

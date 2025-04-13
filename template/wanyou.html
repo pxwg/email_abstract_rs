@@ -1,0 +1,160 @@
+<!-- html template for seminar announcement in '万有预报' -->
+<!DOCTYPE html>
+<html>
+  <meta charset="UTF-8">
+  <head>
+    <style>
+      /* Common styles */
+      .box-sizing-border {
+        box-sizing: border-box;
+      }
+
+      /* Header section with dots */
+      .header-container {
+        margin-top: 10px;
+        margin-bottom: 10px;
+        text-align: left;
+      }
+
+      .dots-container {
+        width: 0.6em;
+        display: inline-block;
+        vertical-align: middle;
+        line-height: 0;
+      }
+
+      .dot {
+        width: 0.6em;
+        height: 0.6em;
+        display: block;
+        background-color: rgb(245, 200, 51);
+        margin: 0;
+      }
+
+      .dot-light {
+        opacity: 0.2;
+      }
+
+      /* Only keep margin for middle dot */
+      .dot-medium {
+        opacity: 0.6;
+        margin: 2px 0;
+      }
+
+      .dot-dark {
+        opacity: 1;
+      }
+
+      .header-text {
+        display: inline-block;
+        vertical-align: middle;
+        font-size: 19px;
+        padding-left: 5px;
+      }
+
+      /* Content section */
+      .content-container {
+        margin-top: 10px;
+        margin-bottom: 10px;
+      }
+
+      .content-box {
+        border: 1px solid rgb(245, 200, 51);
+        padding: 10px;
+        background-color: rgb(255, 255, 255);
+      }
+
+      .content-section {
+        text-align: left;
+        font-size: 14px;
+      }
+
+      .section-title {
+        font-size: 16px;
+        font-weight: bold;
+      }
+
+      .highlight-text {
+        color: rgb(249, 110, 87);
+      }
+
+      .divider {
+        margin: 0.5em 0px;
+      }
+
+      .dotted-line {
+        border-top: 1px dotted rgb(245, 200, 51);
+      }
+
+      .corner-fold {
+        height: 18px;
+        width: 100%;
+        border-right: 1px solid rgb(245, 200, 51);
+        transform-origin: right bottom;
+        -webkit-transform-origin: right bottom;
+        margin-top: -19px;
+        transform: rotate(-45deg);
+        -webkit-transform: rotate(-45deg);
+        max-width: 100% !important;
+      }
+
+      /* Reset margins and paddings */
+      .no-margin {
+        margin: 0px;
+        padding: 0px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Physics Department Seminar Header -->
+    <section class="header-container box-sizing-border">
+      <section class="dots-container box-sizing-border">
+        <span class="dot dot-light box-sizing-border"></span>
+        <span class="dot dot-medium box-sizing-border"></span>
+        <span class="dot dot-dark box-sizing-border"></span>
+      </section>
+      <section class="header-text box-sizing-border">
+        <p class="no-margin box-sizing-border">
+          物理系学术报告
+        </p>
+      </section>
+    </section>
+    <!-- Seminar Content Container -->
+    <section class="content-container box-sizing-border">
+      <section class="content-box box-sizing-border">
+        <!-- First Seminar -->
+        <section class="content-section box-sizing-border">
+          <p class="no-margin box-sizing-border">
+            <span class="section-title box-sizing-border"><strong class="box-sizing-border"> {event} </strong></span>
+          </p>
+          <p class="no-margin box-sizing-border">
+            报告人：{speaker_name} {speaker_title}
+          </p>
+          <p class="no-margin box-sizing-border">
+            时间:<span class="highlight-text box-sizing-border"> {time_begin} </span>
+          </p>
+          <p class="no-margin box-sizing-border">
+            地点: {position} </span>
+        </p>
+      </section>
+      <!-- Divider -->
+      <section class="divider box-sizing-border">
+        <section class="dotted-line box-sizing-border">
+          <svg viewbox="0 0 1 1" style="float:left;line-height:0;width:0;vertical-align:top;box-sizing:border-box;" xml:space="default"></svg>
+        </section>
+      </section>
+      <!-- End of the first seminar -->
+      <!-- Note -->
+      <p class="no-margin box-sizing-border">
+        <span style="font-size: 14px;box-sizing: border-box;"><strong class="box-sizing-border">学术报告信息更新较晚，请同学们持续关注邮件~</strong></span><br class="box-sizing-border"/>
+      </p>
+    </section>
+    <!-- End of the texts -->
+    <!-- Decorative corner fold -->
+    <section class="no-margin box-sizing-border">
+      <svg viewbox="0 0 1 1" style="float:left;line-height:0;width:0;vertical-align:top;box-sizing:border-box;" xml:space="default"></svg>
+    </section>
+  </section>
+  <p class="no-margin box-sizing-border">
+    <br class="box-sizing-border"/>
+  </p>
