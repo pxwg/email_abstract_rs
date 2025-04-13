@@ -33,3 +33,10 @@ MAIL_PASSWORD="your_passowrd"  # Set this elsewhere in your application
 PATH_TO_DB="/path/to/your/sqlite.db" # absolute path to the database
 ```
 存储在 `.env` 文件之中。
+
+### 使用
+
+见 (懒得写了，回头用 ci 自动生成使用方法)
+```bash
+cargo run --release --bin email_abstract_rs -- -h
+```
