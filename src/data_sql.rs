@@ -3,9 +3,8 @@ use rusqlite;
 pub async fn store_json_to_db(
   events: Vec<serde_json::Value>,
   path_to_db: &str,
-) -> Result<(), Box<dyn std::error::Error>> {
+) -> Result<(usize, usize), Box<dyn std::error::Error>> {
   let conn = rusqlite::Connection::open(path_to_db)?;
-
   conn.execute(
     "CREATE TABLE IF NOT EXISTS events (
             id INTEGER PRIMARY KEY,
@@ -27,7 +26,7 @@ pub async fn store_json_to_db(
     let sender = event["sender"].as_str().unwrap_or_default();
     let position = event["position"].as_str().unwrap_or_default();
     let time_begin = event["time_begin"].as_str().unwrap_or_default();
-    let time_end = event["end_time"].as_str().unwrap_or_default();
+    let time_end = event["time_end"].as_str().unwrap_or_default();
 
     let mut stmt = conn.prepare(
       "SELECT id FROM events WHERE sender = ?1 AND position = ?2 AND time_begin = ?3 AND time_end = ?4",
@@ -36,10 +35,6 @@ pub async fn store_json_to_db(
 
     if exists {
       // Update existing record
-      eprint!(
-        "Record exists: {} - {} - {} - {}\n",
-        sender, event_name, time_begin, time_end
-      );
       conn.execute(
         "UPDATE events SET time_begin = ?1, time_end = ?2, position = ?3, abstract = ?4 
          WHERE sender = ?5 AND event = ?6",
@@ -71,9 +66,5 @@ pub async fn store_json_to_db(
     }
   }
 
-  println!(
-    "Database updated: {} records inserted, {} records updated",
-    inserted, updated
-  );
-  Ok(())
+  Ok((inserted, updated))
 }
