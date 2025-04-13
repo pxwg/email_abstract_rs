@@ -19,24 +19,61 @@ pub async fn store_json_to_db(
     [],
   )?;
 
+  let mut updated = 0;
+  let mut inserted = 0;
+
   for event in events.clone() {
-    conn.execute(
-      "INSERT INTO events (sender, event, time_begin, time_end, position, abstract) 
-              VALUES (?1, ?2, ?3, ?4, ?5, ?6)",
-      rusqlite::params![
-        event["sender"].as_str().unwrap_or_default(),
-        event["event"].as_str().unwrap_or_default(),
-        event["time_begin"].as_str().unwrap_or_default(),
-        event["time_end"].as_str().unwrap_or_default(),
-        event["position"].as_str().unwrap_or_default(),
-        event["abstract"].as_str().unwrap_or_default(),
-      ],
+    let event_name = event["event"].as_str().unwrap_or_default();
+    let sender = event["sender"].as_str().unwrap_or_default();
+    let position = event["position"].as_str().unwrap_or_default();
+    let time_begin = event["time_begin"].as_str().unwrap_or_default();
+    let time_end = event["end_time"].as_str().unwrap_or_default();
+
+    let mut stmt = conn.prepare(
+      "SELECT id FROM events WHERE sender = ?1 AND position = ?2 AND time_begin = ?3 AND time_end = ?4",
     )?;
+    let exists = stmt.exists(rusqlite::params![sender, position, time_begin, time_end])?;
+
+    if exists {
+      // Update existing record
+      eprint!(
+        "Record exists: {} - {} - {} - {}\n",
+        sender, event_name, time_begin, time_end
+      );
+      conn.execute(
+        "UPDATE events SET time_begin = ?1, time_end = ?2, position = ?3, abstract = ?4 
+         WHERE sender = ?5 AND event = ?6",
+        rusqlite::params![
+          event["time_begin"].as_str().unwrap_or_default(),
+          event["time_end"].as_str().unwrap_or_default(),
+          event["position"].as_str().unwrap_or_default(),
+          event["abstract"].as_str().unwrap_or_default(),
+          sender,
+          event_name,
+        ],
+      )?;
+      updated += 1;
+    } else {
+      // Insert new record
+      conn.execute(
+        "INSERT INTO events (sender, event, time_begin, time_end, position, abstract) 
+         VALUES (?1, ?2, ?3, ?4, ?5, ?6)",
+        rusqlite::params![
+          sender,
+          event_name,
+          event["time_begin"].as_str().unwrap_or_default(),
+          event["time_end"].as_str().unwrap_or_default(),
+          event["position"].as_str().unwrap_or_default(),
+          event["abstract"].as_str().unwrap_or_default(),
+        ],
+      )?;
+      inserted += 1;
+    }
   }
 
   println!(
-    "Successfully stored {} events in the database",
-    events.len()
+    "Database updated: {} records inserted, {} records updated",
+    inserted, updated
   );
   Ok(())
 }
