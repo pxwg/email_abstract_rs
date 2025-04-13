@@ -14,7 +14,7 @@ async fn test_store_json_to_db_english() {
     "time_begin": "2023-01-01T10:00:00",
     "time_end": "2023-01-01T11:00:00",
     "position": "Room 101",
-    "abstract": "This is a test abstract with English content."
+    "speaker": "John Doe, Professor",
   })];
 
   let result = store_json_to_db(test_events.clone(), db_path).await;
@@ -32,6 +32,7 @@ async fn test_store_json_to_db_english() {
         row.get::<_, String>(4)?, // time_end
         row.get::<_, String>(5)?, // position
         row.get::<_, String>(6)?, // abstract
+        row.get::<_, String>(7)?, // speaker
       ))
     })
     .unwrap();
@@ -42,6 +43,7 @@ async fn test_store_json_to_db_english() {
   assert_eq!(event.3, "2023-01-01T11:00:00");
   assert_eq!(event.4, "Room 101");
   assert_eq!(event.5, "This is a test abstract with English content.");
+  assert_eq!(event.6, "John Doe, Professor");
 }
 
 #[tokio::test]
@@ -55,7 +57,8 @@ async fn test_store_json_to_db_chinese() {
     "time_begin": "2023-01-01T10:00:00",
     "time_end": "2023-01-01T11:00:00",
     "position": "清华大学主楼",
-    "abstract": "这是一个中文摘要，测试数据库对中文的支持。"
+    "abstract": "这是一个中文摘要，测试数据库对中文的支持。",
+    "speaker": "张教授，清华大学"
   })];
 
   let result = store_json_to_db(test_events.clone(), db_path).await;
@@ -73,6 +76,7 @@ async fn test_store_json_to_db_chinese() {
         row.get::<_, String>(4)?, // time_end
         row.get::<_, String>(5)?, // position
         row.get::<_, String>(6)?, // abstract
+        row.get::<_, String>(7)?, // speaker
       ))
     })
     .unwrap();
@@ -83,6 +87,7 @@ async fn test_store_json_to_db_chinese() {
   assert_eq!(event.3, "2023-01-01T11:00:00");
   assert_eq!(event.4, "清华大学主楼");
   assert_eq!(event.5, "这是一个中文摘要，测试数据库对中文的支持。");
+  assert_eq!(event.6, "张教授，清华大学");
 }
 
 #[tokio::test]
@@ -97,7 +102,8 @@ async fn test_store_json_to_db_multiple_events() {
       "time_begin": "2023-01-01T10:00:00",
       "time_end": "2023-01-01T11:00:00",
       "position": "Room 101",
-      "abstract": "English abstract text."
+      "abstract": "English abstract text.",
+      "speaker": "Dr. Smith, MIT"
     }),
     json!({
       "sender": "chinese@example.com",
@@ -105,7 +111,8 @@ async fn test_store_json_to_db_multiple_events() {
       "time_begin": "2023-01-02T14:00:00",
       "time_end": "2023-01-02T16:00:00",
       "position": "图书馆",
-      "abstract": "中文摘要内容。"
+      "abstract": "中文摘要内容。",
+      "speaker": "李教授，北京大学"
     }),
     json!({
       "sender": "mixed@example.com",
@@ -113,7 +120,8 @@ async fn test_store_json_to_db_multiple_events() {
       "time_begin": "2023-01-03T09:00:00",
       "time_end": "2023-01-03T10:30:00",
       "position": "Conference Room 会议室",
-      "abstract": "This is a mixed language abstract 这是一个混合语言的摘要。"
+      "abstract": "This is a mixed language abstract 这是一个混合语言的摘要。",
+      "speaker": "Prof. Wang, Stanford University"
     }),
   ];
 

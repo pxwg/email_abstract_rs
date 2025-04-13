@@ -7,14 +7,15 @@ pub async fn store_json_to_db(
   let conn = rusqlite::Connection::open(path_to_db)?;
   conn.execute(
     "CREATE TABLE IF NOT EXISTS events (
-            id INTEGER PRIMARY KEY,
-            sender TEXT NOT NULL,
-            event TEXT NOT NULL,
-            time_begin TEXT NOT NULL,
-            time_end TEXT NOT NULL,
-            position TEXT NOT NULL,
-            abstract TEXT NOT NULL
-        )",
+          id INTEGER PRIMARY KEY,
+          sender TEXT NOT NULL,
+          event TEXT NOT NULL,
+          time_begin TEXT NOT NULL,
+          time_end TEXT NOT NULL,
+          position TEXT NOT NULL,
+          \"abstract\" TEXT NOT NULL,
+          speaker TEXT NOT NULL
+      )",
     [],
   )?;
 
@@ -36,23 +37,24 @@ pub async fn store_json_to_db(
     if exists {
       // Update existing record
       conn.execute(
-        "UPDATE events SET time_begin = ?1, time_end = ?2, position = ?3, abstract = ?4 
-         WHERE sender = ?5 AND event = ?6",
-        rusqlite::params![
-          event["time_begin"].as_str().unwrap_or_default(),
-          event["time_end"].as_str().unwrap_or_default(),
-          event["position"].as_str().unwrap_or_default(),
-          event["abstract"].as_str().unwrap_or_default(),
-          sender,
-          event_name,
-        ],
-      )?;
+      "UPDATE events SET time_begin = ?1, time_end = ?2, position = ?3, \"abstract\" = ?4, speaker = ?5 
+       WHERE sender = ?6 AND event = ?7",
+      rusqlite::params![
+        event["time_begin"].as_str().unwrap_or_default(),
+        event["time_end"].as_str().unwrap_or_default(),
+        event["position"].as_str().unwrap_or_default(),
+        event["abstract"].as_str().unwrap_or_default(),
+        event["speaker"].as_str().unwrap_or_default(),
+        sender,
+        event_name,
+      ],
+    )?;
       updated += 1;
     } else {
       // Insert new record
       conn.execute(
-        "INSERT INTO events (sender, event, time_begin, time_end, position, abstract) 
-         VALUES (?1, ?2, ?3, ?4, ?5, ?6)",
+        "INSERT INTO events (sender, event, time_begin, time_end, position, \"abstract\", speaker) 
+       VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7)",
         rusqlite::params![
           sender,
           event_name,
@@ -60,6 +62,7 @@ pub async fn store_json_to_db(
           event["time_end"].as_str().unwrap_or_default(),
           event["position"].as_str().unwrap_or_default(),
           event["abstract"].as_str().unwrap_or_default(),
+          event["speaker"].as_str().unwrap_or_default(),
         ],
       )?;
       inserted += 1;
