@@ -23,7 +23,8 @@ const DEFAULT_PROMPT: &str = "input = {emails_input}
 - time_begin: 活动开始时间（格式：YYYY年MM月DD日 HH时MM分）
 - time_end: 活动结束时间（格式：YYYY年MM月DD日 HH时MM分）
 - position: 活动地点
-- speaker: 主讲人信息，包含姓名和头衔（例如：张三，北京大学教授）
+- speaker_name: 主讲人姓名 (注意！主讲人通常不是邮件的发件人)
+- speaker_title: 主讲人职称或头衔
 - abstract: 活动内容概要，包括主要议题、参会嘉宾和重要信息。若为学术报告，需概括研究成果。注意，摘要需要尽可能详实丰富，包含所有关键信息。但不能直接照搬邮件内容，而应当利用介绍的表达方式进行概括。
 
 重要提示：
