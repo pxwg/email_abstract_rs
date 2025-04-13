@@ -34,7 +34,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     config.temperature,
   )
   .await?;
-  eprintln!("Response: {}", result);
+  println!("Response: {}", result);
 
   let events: Vec<serde_json::Value> = serde_json::from_str(&result)?;
 
