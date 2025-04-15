@@ -14,7 +14,9 @@ async fn test_store_json_to_db_english() {
     "time_begin": "2023-01-01T10:00:00",
     "time_end": "2023-01-01T11:00:00",
     "position": "Room 101",
-    "speaker": "John Doe, Professor",
+    "abstract": "this is a test abstract with english content.",
+    "speaker_name": "John Doe",
+    "speaker_title": "Professor",
   })];
 
   let result = store_json_to_db(test_events.clone(), db_path).await;
@@ -33,6 +35,7 @@ async fn test_store_json_to_db_english() {
         row.get::<_, String>(5)?, // position
         row.get::<_, String>(6)?, // abstract
         row.get::<_, String>(7)?, // speaker
+        row.get::<_, String>(8)?, // speaker_title
       ))
     })
     .unwrap();
@@ -42,8 +45,9 @@ async fn test_store_json_to_db_english() {
   assert_eq!(event.2, "2023-01-01T10:00:00");
   assert_eq!(event.3, "2023-01-01T11:00:00");
   assert_eq!(event.4, "Room 101");
-  assert_eq!(event.5, "This is a test abstract with English content.");
-  assert_eq!(event.6, "John Doe, Professor");
+  assert_eq!(event.5, "this is a test abstract with english content.");
+  assert_eq!(event.6, "John Doe");
+  assert_eq!(event.7, "Professor");
 }
 
 #[tokio::test]
@@ -58,7 +62,8 @@ async fn test_store_json_to_db_chinese() {
     "time_end": "2023-01-01T11:00:00",
     "position": "清华大学主楼",
     "abstract": "这是一个中文摘要，测试数据库对中文的支持。",
-    "speaker": "张教授，清华大学"
+    "speaker_name": "张教授",
+    "speaker_title": "清华大学"
   })];
 
   let result = store_json_to_db(test_events.clone(), db_path).await;
@@ -76,7 +81,8 @@ async fn test_store_json_to_db_chinese() {
         row.get::<_, String>(4)?, // time_end
         row.get::<_, String>(5)?, // position
         row.get::<_, String>(6)?, // abstract
-        row.get::<_, String>(7)?, // speaker
+        row.get::<_, String>(7)?, // speaker_name
+        row.get::<_, String>(8)?, // speaker_title
       ))
     })
     .unwrap();
@@ -87,7 +93,8 @@ async fn test_store_json_to_db_chinese() {
   assert_eq!(event.3, "2023-01-01T11:00:00");
   assert_eq!(event.4, "清华大学主楼");
   assert_eq!(event.5, "这是一个中文摘要，测试数据库对中文的支持。");
-  assert_eq!(event.6, "张教授，清华大学");
+  assert_eq!(event.6, "张教授");
+  assert_eq!(event.7, "清华大学");
 }
 
 #[tokio::test]
